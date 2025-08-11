@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiplication Table (2 to 10)</title>
+</head>
+<body>
+    <h2>Multiplication Tables from 2 to 10</h2>
+    <div id="tables"></div>
+
+    <script>
+        let output = "";
+
+        for (let num = 2; num <= 10; num++) {
+            output += `<h3>Table of ${num}</h3>`;
+            for (let i = 1; i <= 10; i++) {
+                output += `${num} × ${i} = ${num * i} <br>`;
+            }
+            output += "<hr>";
+        }
+
+        document.getElementById("tables").innerHTML = output;
+    </script>
+</body>
+</html>
