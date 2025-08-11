@@ -1,15 +1,9 @@
--- Check if tables exist and drop them to prevent errors on re-run
-IF OBJECT_ID('dbo.ContractEmployees', 'U') IS NOT NULL
-DROP TABLE dbo.ContractEmployees;
+-- Drop tables if they exist (to avoid errors on re-run)
+DROP TABLE IF EXISTS dbo.ContractEmployees;
+DROP TABLE IF EXISTS dbo.PayrollEmployees;
+DROP TABLE IF EXISTS dbo.Employees;
 
-IF OBJECT_ID('dbo.PayrollEmployees', 'U') IS NOT NULL
-DROP TABLE dbo.PayrollEmployees;
-
-IF OBJECT_ID('dbo.Employees', 'U') IS NOT NULL
-DROP TABLE dbo.Employees;
-
-
--- Create the Employees table for common data
+-- Employees table (common details)
 CREATE TABLE Employees (
     EmployeeID INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
@@ -17,20 +11,20 @@ CREATE TABLE Employees (
     EmployeeType NVARCHAR(20) NOT NULL -- 'Payroll' or 'Contract'
 );
 
--- Create the PayrollEmployees table
+-- PayrollEmployees table
 CREATE TABLE PayrollEmployees (
     EmployeeID INT PRIMARY KEY,
     JoiningDate DATE NOT NULL,
     Experience INT NOT NULL,
     BasicSalary DECIMAL(18, 2) NOT NULL,
-    DA DECIMAL(18, 2) NULL,
-    HRA DECIMAL(18, 2) NULL,
-    PF DECIMAL(18, 2) NULL,
-    NetSalary DECIMAL(18, 2) NULL,
+    DA DECIMAL(18, 2),
+    HRA DECIMAL(18, 2),
+    PF DECIMAL(18, 2),
+    NetSalary DECIMAL(18, 2),
     FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
 );
 
--- Create the ContractEmployees table
+-- ContractEmployees table
 CREATE TABLE ContractEmployees (
     EmployeeID INT PRIMARY KEY,
     ContractDate DATE NOT NULL,
